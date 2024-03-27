@@ -2,7 +2,7 @@ import os
 
 
 class Config:
-    pass
+    DATABASE_URI: str = None
 
 
 def load_config() -> Config:
