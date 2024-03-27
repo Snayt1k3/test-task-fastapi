@@ -12,7 +12,7 @@ class Machine(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     """Идентификатор в бд"""
-    identifier: Mapped[str] = mapped_column(String(5), default=lambda a: str(random.randint(1000, 9999)) + random.choice(string.ascii_uppercase))
+    identifier: Mapped[str] = mapped_column(String(5), default=lambda: str(random.randint(1000, 9999)) + random.choice(string.ascii_uppercase))
     """Номер машины"""
     location_id: Mapped[int] = mapped_column(ForeignKey("locations.id"))
     """Локация, в которой осуществляется подбор"""
