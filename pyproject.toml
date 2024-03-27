@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "test-task-fastapi"
+version = "0.1.0"
+description = ""
+authors = ["Snayt1k3 <snayt1k3twitch@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+alembic = "^1.13.1"
+sqlalchemy = "^2.0.29"
+fastapi = "^0.110.0"
+asyncpg = "^0.29.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
