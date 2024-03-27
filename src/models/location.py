@@ -15,9 +15,9 @@ class Location(Base):
     """Штат, провинция, район"""
     zip: Mapped[int]
     """Почтовый индекс"""
-    longitude: Mapped[int]
+    longitude: Mapped[float]
     """Долгота"""
-    latitude: Mapped[int]
+    latitude: Mapped[float]
     """Широта"""
 
     def to_read_model(self) -> LocationSchema:
