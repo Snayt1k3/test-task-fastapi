@@ -1,5 +1,6 @@
+from sqlalchemy import ForeignKey, Integer, CheckConstraint, orm
 from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import ForeignKey, Integer, CheckConstraint
+
 from src.db.db import Base
 from src.dto.cargo import CargoSchema
 
@@ -17,6 +18,12 @@ class Cargo(Base):
     """Вес груза"""
     description: Mapped[str]
     """Описание груза"""
+
+    @orm.validates('weight')
+    def validate_weight(self, key, value):
+        if not 1 < value <= 1000:
+            raise ValueError(f'Invalid weight {value}')
+        return value
 
     def to_read_model(self) -> CargoSchema:
         return CargoSchema(
