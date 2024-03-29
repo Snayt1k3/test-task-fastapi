@@ -5,7 +5,7 @@ from src.config import load_config
 cfg = load_config()
 
 
-engine = create_async_engine(cfg.DATABASE_URI)
+engine = create_async_engine(cfg.DATABASE_URL)
 async_session_maker = async_sessionmaker(engine, expire_on_commit=False)
 
 

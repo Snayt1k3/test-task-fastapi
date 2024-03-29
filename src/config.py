@@ -1,11 +1,15 @@
 import os
 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Config:
     DB_USER: str = os.getenv("POSTGRES_USER")
     DB_PASSWORD: str = os.getenv("POSTGRES_PASSWORD")
     DB_HOST: str = os.getenv("POSTGRES_HOST")
     DB_NAME: str = os.getenv("POSTGRES_DB")
+    DB_PORT: str = os.getenv("POSTGRES_PORT")
     DATABASE_URL: str = (
         f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:5432/{DB_NAME}"  # noqa: E501
     )

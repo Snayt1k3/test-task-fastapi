@@ -5,7 +5,7 @@ from src.dto.cargo import CargoSchemaAdd, CargoSchemaFilter, CargoSchemaEdit
 from src.services.cargo import CargosService
 
 
-cargos_router = APIRouter(prefix="cargo", tags=["cargo"])
+cargos_router = APIRouter(prefix="/cargo", tags=["cargo"])
 
 
 @cargos_router.post(path="/")
