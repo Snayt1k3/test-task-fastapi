@@ -22,10 +22,10 @@ class Cargo(Base):
     pick_up_location = relationship("Location", foreign_keys=[pick_up_id])
     delivery_location = relationship("Location", foreign_keys=[delivery_id])
 
-    @orm.validates('weight')
+    @orm.validates("weight")
     def validate_weight(self, key, value):
         if not 1 < value <= 1000:
-            raise ValueError(f'Invalid weight {value}')
+            raise ValueError(f"Invalid weight {value}")
         return value
 
     def to_read_model(self) -> CargoSchema:
@@ -35,5 +35,4 @@ class Cargo(Base):
             delivery_location=self.delivery_location.to_read_model(),
             weight=self.weight,
             description=self.description,
-
         )

@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from .location import LocationSchema
 
+
 class CargoSchema(BaseModel):
     id: int
     """Идентификатор в бд"""

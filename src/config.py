@@ -7,4 +7,3 @@ class Config:
 
 def load_config() -> Config:
     return Config()
-

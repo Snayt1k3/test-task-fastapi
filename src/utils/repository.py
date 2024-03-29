@@ -21,6 +21,7 @@ class AbstractRepository(ABC):
     async def find_one(self, **filter_by):
         raise NotImplementedError
 
+
 class SQLAlchemyRepository(AbstractRepository):
     model = None
 
@@ -33,7 +34,9 @@ class SQLAlchemyRepository(AbstractRepository):
         return res.scalar_one()
 
     async def edit_one(self, id: int, data: dict) -> int:
-        stmt = update(self.model).values(**data).filter_by(id=id).returning(self.model.id)
+        stmt = (
+            update(self.model).values(**data).filter_by(id=id).returning(self.model.id)
+        )
         res = await self.session.execute(stmt)
         return res.scalar_one()
 

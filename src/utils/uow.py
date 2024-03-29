@@ -6,30 +6,26 @@ from src.repositories.location import LocationsRepository
 from src.repositories.machine import MachinesRepository
 from src.repositories.cargo import CargosRepository
 
+
 class IUnitOfWork(ABC):
     cargos: CargosRepository
     machines: MachinesRepository
     locations: LocationsRepository
 
     @abstractmethod
-    def __init__(self):
-        ...
+    def __init__(self): ...
 
     @abstractmethod
-    async def __aenter__(self):
-        ...
+    async def __aenter__(self): ...
 
     @abstractmethod
-    async def __aexit__(self, *args):
-        ...
+    async def __aexit__(self, *args): ...
 
     @abstractmethod
-    async def commit(self):
-        ...
+    async def commit(self): ...
 
     @abstractmethod
-    async def rollback(self):
-        ...
+    async def rollback(self): ...
 
 
 class UnitOfWork:
