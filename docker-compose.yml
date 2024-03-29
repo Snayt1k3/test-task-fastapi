@@ -9,17 +9,15 @@ services:
     depends_on:
       - db
     env_file:
-      - .env.docker
+      - .env
     command: make start
     restart: always
 
   db:
     image: postgres:15
     ports:
-      - '5401:5432'
+      - '5432:5432'
     volumes:
       - ./data-db:/var/lib/postgresql/data
     env_file:
-      - .env.docker
-    networks:
-      - stroy-otdelka
+      - .env
