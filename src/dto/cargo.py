@@ -26,9 +26,9 @@ class CargoSchemaAdd(BaseModel):
 
 
 class CargoSchemaFilter(BaseModel):
-    weight: int
+    weight: int = None
     """Вес груза"""
-    miles: int
+    miles: int = None
     """Максимальное расстояние от машины до груза"""
 
 

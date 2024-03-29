@@ -1,0 +1,2 @@
+black:
+	poetry run black .

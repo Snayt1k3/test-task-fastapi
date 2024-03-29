@@ -7,9 +7,9 @@ from src.repositories.machine import MachinesRepository
 from src.repositories.cargo import CargosRepository
 
 class IUnitOfWork(ABC):
-    cargos: Type[CargosRepository]
-    machines: Type[MachinesRepository]
-    locations: Type[LocationsRepository]
+    cargos: CargosRepository
+    machines: MachinesRepository
+    locations: LocationsRepository
 
     @abstractmethod
     def __init__(self):

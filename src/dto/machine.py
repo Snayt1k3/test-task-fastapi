@@ -9,3 +9,9 @@ class MachineSchema(BaseModel):
     """Локация, в которой осуществляется подбор"""
     payload: int
     """Грузоподъемность"""
+
+class MachineEditSchema(BaseModel):
+    id: int
+    """Идентификатор в бд"""
+    zip: int
+    """Zip код локации"""
