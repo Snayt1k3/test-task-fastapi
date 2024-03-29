@@ -36,7 +36,7 @@ class CargoSchemaFilter(BaseModel):
 class CargoSchemaEdit(BaseModel):
     id: int
     """Идентификатор в бд"""
-    weight: int
+    weight: int = None
     """Вес груза"""
-    description: str
+    description: str = None
     """Описание груза"""
