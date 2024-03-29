@@ -1,7 +1,7 @@
 import random
 import string
 
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import ForeignKey, String, orm
 from src.db.db import Base
 from src.dto.machine import MachineSchema
@@ -18,6 +18,8 @@ class Machine(Base):
     """Локация, в которой осуществляется подбор"""
     payload: Mapped[int]
     """Грузоподъемность"""
+    location = relationship("Location", foreign_keys=[location_id])
+    """Локация в которой находится машина"""
 
     @orm.validates('payload')
     def validate_payload(self, key, value):
@@ -29,6 +31,6 @@ class Machine(Base):
         return MachineSchema(
             id=self.id,
             identifier=self.identifier,
-            location_id=self.location_id,
+            location=self.location.to_read_model(),
             payload=self.payload
         )
