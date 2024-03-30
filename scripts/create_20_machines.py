@@ -6,6 +6,7 @@ from src.utils.uow import UnitOfWork
 from src.services.machines import MachinesService
 from src.services.location import LocationService
 
+
 async def create_20_machines():
     uow = UnitOfWork()
     service_loc = LocationService()
@@ -16,8 +17,6 @@ async def create_20_machines():
         location = random.choice(all_locations)
         machine = MachineAddSchema(payload=random.randint(1, 1000), zip=location.zip)
         await service_mac.add_machine(uow, machine)
-
-
 
 
 if __name__ == "__main__":

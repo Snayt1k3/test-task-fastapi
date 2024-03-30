@@ -15,6 +15,7 @@ class LocationSchema(BaseModel):
     latitude: float
     """Широта"""
 
+
 class LocationAddSchema(BaseModel):
     city: str
     """Город"""

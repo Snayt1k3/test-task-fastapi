@@ -3,6 +3,7 @@ from sqlalchemy.orm import joinedload
 from src.models.machine import Machine
 from src.utils.repository import SQLAlchemyRepository
 
+
 class MachinesRepository(SQLAlchemyRepository):
     model = Machine
 
@@ -13,7 +14,11 @@ class MachinesRepository(SQLAlchemyRepository):
         return res
 
     async def find_one(self, **filter_by):
-        stmt = select(self.model).filter_by(**filter_by).options(joinedload(self.model.location))
+        stmt = (
+            select(self.model)
+            .filter_by(**filter_by)
+            .options(joinedload(self.model.location))
+        )
         res = await self.session.execute(stmt)
         res = res.scalar_one().to_read_model()
         return res

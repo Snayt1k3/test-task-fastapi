@@ -4,6 +4,7 @@ from src.utils.uow import UnitOfWork
 from src.dto.location import LocationAddSchema
 from src.services.location import LocationService
 
+
 async def upload():
     service = LocationService()
     uow = UnitOfWork()
@@ -23,6 +24,7 @@ async def upload():
             )
 
             await service.add_location(uow, location)
+
 
 if __name__ == "__main__":
     asyncio.run(upload())

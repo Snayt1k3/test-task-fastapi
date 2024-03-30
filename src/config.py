@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 class Config:
     DB_USER: str = os.getenv("POSTGRES_USER")
     DB_PASSWORD: str = os.getenv("POSTGRES_PASSWORD")

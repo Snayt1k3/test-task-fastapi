@@ -17,7 +17,9 @@ async def create_cargo(uow: UOWDep, cargo: CargoSchemaAdd):
 @cargos_router.get(path="/list")
 async def get_cargos(uow: UOWDep, weight: int = None, miles: int = None):
 
-    cargos = await CargosService().get_cargos_with_machines(uow, CargoSchemaFilter(weight=weight,miles=miles ))
+    cargos = await CargosService().get_cargos_with_machines(
+        uow, CargoSchemaFilter(weight=weight, miles=miles)
+    )
     return JSONResponse(cargos)
 
 

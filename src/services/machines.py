@@ -18,7 +18,9 @@ class MachinesService:
     async def add_machine(self, uow: IUnitOfWork, machine: MachineAddSchema):
         async with uow:
             location = await uow.locations.find_one(zip=machine.zip)
-            id = await uow.machines.add_one({"payload": machine.payload, "location_id": location.id})
+            id = await uow.machines.add_one(
+                {"payload": machine.payload, "location_id": location.id}
+            )
             await uow.commit()
 
             return id

@@ -10,6 +10,7 @@ from alembic import context
 from src.models.location import Location
 from src.models.machine import Machine
 from src.models.cargo import Cargo
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
