@@ -10,7 +10,19 @@ class LocationSchema(BaseModel):
     """Штат, провинция, район"""
     zip: int
     """Почтовый индекс"""
-    longitude: int
+    longitude: float
     """Долгота"""
-    latitude: int
+    latitude: float
+    """Широта"""
+
+class LocationAddSchema(BaseModel):
+    city: str
+    """Город"""
+    state: str
+    """Штат, провинция, район"""
+    zip: int
+    """Почтовый индекс"""
+    longitude: float
+    """Долгота"""
+    latitude: float
     """Широта"""
