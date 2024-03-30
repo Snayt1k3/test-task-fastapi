@@ -8,3 +8,8 @@ class LocationService:
             await uow.commit()
 
             return id
+
+    async def get_locations(self, uow: IUnitOfWork):
+        async with uow:
+            locations = await uow.locations.find_all()
+            return locations

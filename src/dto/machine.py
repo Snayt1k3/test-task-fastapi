@@ -18,3 +18,10 @@ class MachineEditSchema(BaseModel):
     """Идентификатор в бд"""
     zip: int
     """Zip код локации"""
+
+
+class MachineAddSchema(BaseModel):
+    zip: int
+    """Локация, в которой осуществляется подбор"""
+    payload: int
+    """Грузоподъемность"""
