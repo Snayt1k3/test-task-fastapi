@@ -2,9 +2,9 @@ black:
 	poetry run black .
 
 app:
-	poetry run python main.py
+	poetry run uvicorn main:app --host 0.0.0.0 --proxy-headers
 
 db:
-	alembic upgrade head
+	poetry run alembic upgrade head
 
 start: db app

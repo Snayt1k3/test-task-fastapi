@@ -1,4 +1,7 @@
 version: "3.8"
+networks:
+  app-network:
+    driver: bridge
 services:
   app:
     build:
@@ -12,6 +15,9 @@ services:
       - .env
     command: make start
     restart: always
+    networks:
+      - app-network
+
 
   db:
     image: postgres:15
@@ -21,3 +27,5 @@ services:
       - ./data-db:/var/lib/postgresql/data
     env_file:
       - .env
+    networks:
+      - app-network
