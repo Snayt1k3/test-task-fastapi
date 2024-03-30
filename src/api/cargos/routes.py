@@ -15,8 +15,9 @@ async def create_cargo(uow: UOWDep, cargo: CargoSchemaAdd):
 
 
 @cargos_router.get(path="/list")
-async def get_cargos(uow: UOWDep, filter: CargoSchemaFilter):
-    cargos = await CargosService().get_cargos_with_machines(uow, filter)
+async def get_cargos(uow: UOWDep, weight: int = None, miles: int = None):
+
+    cargos = await CargosService().get_cargos_with_machines(uow, CargoSchemaFilter(weight=weight,miles=miles ))
     return JSONResponse(cargos)
 
 
@@ -27,12 +28,12 @@ async def get_cargo(uow: UOWDep, id: int):
 
 
 @cargos_router.delete("/{id}")
-async def get_cargo(uow: UOWDep, id: int):
+async def delete_cargo(uow: UOWDep, id: int):
     cargo = await CargosService().delete_cargo(uow, id)
     return JSONResponse(cargo)
 
 
 @cargos_router.patch("/")
-async def get_cargo(uow: UOWDep, cargo: CargoSchemaEdit):
+async def edit_cargo(uow: UOWDep, cargo: CargoSchemaEdit):
     cargo = await CargosService().edit_cargo(uow, cargo)
     return JSONResponse(cargo)

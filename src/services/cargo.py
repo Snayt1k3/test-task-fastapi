@@ -14,7 +14,7 @@ class CargosService:
         """Добавляет Груз в БД"""
         async with uow:
             pick_location = await uow.locations.find_one(zip=cargo.pick_up_zip)
-            delivery_location = await uow.locations.find_one(zip=cargo.pick_up_zip)
+            delivery_location = await uow.locations.find_one(zip=cargo.delivery_zip)
 
             cargo_id = await uow.cargos.add_one(
                 {
@@ -41,9 +41,7 @@ class CargosService:
                 if filter.weight is None or cargo.weight == filter.weight
             ]
             all_machines = await uow.machines.find_all()
-
             for cargo in all_cargos:
-                pick_up_location = await uow.locations.find_one(id=cargo.pick_up_id)
                 r_dict["cargos"].append(
                     {
                         "cargo": cargo.model_dump(),
@@ -57,8 +55,8 @@ class CargosService:
                                         machine.location.longitude,
                                     ),
                                     (
-                                        pick_up_location.latitude,
-                                        pick_up_location.longitude,
+                                        cargo.pick_up_location.latitude,
+                                        cargo.pick_up_location.longitude,
                                     ),
                                 ).miles
                                 <= filter.miles
@@ -76,21 +74,19 @@ class CargosService:
             all_machines = await uow.machines.find_all()
 
             for machine in all_machines:
-                pick_up_location = await uow.locations.find_one(id=cargo.pick_up_id)
-
                 r_dict["machines"].append(
                     {
                         "car_number": machine.identifier,
                         "distance": geodesic(
                             (machine.location.latitude, machine.location.longitude),
                             (
-                                pick_up_location.latitude,
-                                pick_up_location.longitude,
+                                cargo.pick_up_location.latitude,
+                                cargo.delivery_location.longitude,
                             ),
                         ).miles,
                     }
                 )
-            r_dict.update(cargo.model_dump())
+            r_dict.update({"cargo": cargo.model_dump()})
         return r_dict
 
     async def edit_cargo(self, uow: IUnitOfWork, cargo: CargoSchemaEdit):
