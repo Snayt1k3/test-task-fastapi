@@ -1,5 +1,10 @@
 black:
 	poetry run black .
 
-start:
+app:
 	poetry run python main.py
+
+db:
+	alembic upgrade head
+
+start: db app
