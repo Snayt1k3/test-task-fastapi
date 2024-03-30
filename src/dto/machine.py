@@ -7,7 +7,7 @@ class MachineSchema(BaseModel):
     """Идентификатор в бд"""
     identifier: str
     """Номер машины"""
-    location: LocationSchema
+    location_id: int
     """Локация, в которой осуществляется подбор"""
     payload: int
     """Грузоподъемность"""
