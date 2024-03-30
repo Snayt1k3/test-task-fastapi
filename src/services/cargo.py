@@ -12,15 +12,18 @@ from src.utils.uow import IUnitOfWork
 class CargosService:
     async def add_cargo(self, uow: IUnitOfWork, cargo: CargoSchemaAdd) -> int:
         """Добавляет Груз в БД"""
-        cargo_dict = cargo.model_dump()
         async with uow:
             pick_location = await uow.locations.find_one(zip=cargo.pick_up_zip)
             delivery_location = await uow.locations.find_one(zip=cargo.pick_up_zip)
 
-            cargo_dict.update(
-                {"delivery_id": delivery_location.id, "pick_up_id": pick_location.id}
+            cargo_id = await uow.cargos.add_one(
+                {
+                    "delivery_id": delivery_location.id,
+                    "pick_up_id": pick_location.id,
+                    "weight": cargo.weight,
+                    "description": cargo.description,
+                }
             )
-            cargo_id = await uow.cargos.add_one(cargo_dict)
             await uow.commit()
             return cargo_id
 
@@ -40,6 +43,7 @@ class CargosService:
             all_machines = await uow.machines.find_all()
 
             for cargo in all_cargos:
+                pick_up_location = await uow.locations.find_one(id=cargo.pick_up_id)
                 r_dict["cargos"].append(
                     {
                         "cargo": cargo.model_dump(),
@@ -53,8 +57,8 @@ class CargosService:
                                         machine.location.longitude,
                                     ),
                                     (
-                                        cargo.pick_up_location.latitude,
-                                        cargo.delivery_location.longitude,
+                                        pick_up_location.latitude,
+                                        pick_up_location.longitude,
                                     ),
                                 ).miles
                                 <= filter.miles
@@ -72,14 +76,16 @@ class CargosService:
             all_machines = await uow.machines.find_all()
 
             for machine in all_machines:
+                pick_up_location = await uow.locations.find_one(id=cargo.pick_up_id)
+
                 r_dict["machines"].append(
                     {
                         "car_number": machine.identifier,
                         "distance": geodesic(
                             (machine.location.latitude, machine.location.longitude),
                             (
-                                cargo.pick_up_location.latitude,
-                                cargo.delivery_location.longitude,
+                                pick_up_location.latitude,
+                                pick_up_location.longitude,
                             ),
                         ).miles,
                     }
@@ -88,7 +94,7 @@ class CargosService:
         return r_dict
 
     async def edit_cargo(self, uow: IUnitOfWork, cargo: CargoSchemaEdit):
-        """Обновляет груз вбд"""
+        """Обновляет груз в бд"""
         async with uow:
             id = await uow.cargos.edit_one(
                 cargo.id, {"description": cargo.description, "weight": cargo.weight}

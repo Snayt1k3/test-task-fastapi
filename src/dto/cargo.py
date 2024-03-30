@@ -1,14 +1,13 @@
 from pydantic import BaseModel
-from .location import LocationSchema
 
 
 class CargoSchema(BaseModel):
     id: int
     """Идентификатор в бд"""
-    pick_up_location: LocationSchema
-    """Локация, в которой осуществляется подбор"""
-    delivery_location: LocationSchema
-    """Локация, в которую осуществляется доставка"""
+    pick_up_id: int
+    """Id Локации, в которой осуществляется подбор"""
+    delivery_id: int
+    """Id Локации, в которую осуществляется доставка"""
     weight: int
     """Вес груза"""
     description: str
