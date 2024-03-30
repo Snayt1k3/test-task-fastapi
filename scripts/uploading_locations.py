@@ -9,7 +9,7 @@ async def upload():
     service = LocationService()
     uow = UnitOfWork()
 
-    with open("uszips.csv", "r") as csvfile:
+    with open("scripts/uszips.csv", "r") as csvfile:
         csvreader = csv.reader(csvfile)
         for i, row in enumerate(csvreader):
             if i == 0:
@@ -26,5 +26,3 @@ async def upload():
             await service.add_location(uow, location)
 
 
-if __name__ == "__main__":
-    asyncio.run(upload())

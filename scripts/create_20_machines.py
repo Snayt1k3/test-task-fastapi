@@ -19,5 +19,3 @@ async def create_20_machines():
         await service_mac.add_machine(uow, machine)
 
 
-if __name__ == "__main__":
-    asyncio.run(create_20_machines())

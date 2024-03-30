@@ -8,3 +8,6 @@ db:
 	poetry run alembic upgrade head
 
 start: db app
+
+script:
+	poetry run python script.py

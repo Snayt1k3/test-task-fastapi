@@ -29,3 +29,16 @@ services:
       - .env
     networks:
       - app-network
+
+  script:
+    build:
+      context: .
+    container_name: script
+    depends_on:
+      - db
+    env_file:
+      - .env
+    command: make script
+    restart: always
+    networks:
+      - app-network
